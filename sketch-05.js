@@ -4,8 +4,10 @@ const settings = {
   dimensions: [ 1080, 1080 ]
 };
 
+let manager;
+
 let text = 'A';
-let fontSize = 1200;
+let fontSize = 100;
 let fontFamily = 'serif';
 
 const sketch = () => {
@@ -40,10 +42,51 @@ const sketch = () => {
     context.stroke();
 
 
-    context.fillText('A', 0, 0);
+    context.fillText(text, 0, 0);
     context.restore();
 
   };
 };
 
-canvasSketch(sketch, settings);
+const onKeyUp = (e) => {
+  text = e.key.toUpperCase();
+  manager.render();
+};
+
+document.addEventListener('keyup', onKeyUp);
+
+const start = async() => {
+  manager = await canvasSketch(sketch, settings);
+};
+
+start();
+
+
+
+/*
+const url = 'https://picsum.photos/200';
+
+const loadMeSomeImage = (url) => {
+  return new Promise((resolve, reject) => {
+    const image = new image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(img);
+    img.src = url;
+  });
+};
+
+const start = async() => {
+  const img = await loadMeSomeImage(url);
+  console.log('image width', img.width);
+  console.log('this line');
+};
+
+// const start = () => {
+//   loadMeSomeImage(url).then(img => {
+//     console.log('image width', img.width);
+//   });
+//   console.log('this line');
+// };
+
+start();
+*/
